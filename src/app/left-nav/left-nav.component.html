@@ -1,0 +1,54 @@
+<div el-row class="left-nav">
+  <div el-col >
+    <el-menu model="2" class="el-menutac-vertical-demo" active-text-color="#20a0ff" text-color="#2d2f33">
+      <el-submenu index="1">
+        <ng-template #title>
+          <i>
+            <img src="../../assets/水.svg" alt="" width="20px" height="20px"
+              style="margin-right: 5px;margin-bottom: 5px;">
+          </i>
+          水质数据
+        </ng-template>
+        <el-menu-item-group title=" ">
+          <el-menu-item index="1-1">查看水质数据</el-menu-item>
+          <el-menu-item index="1-2">数据趋势</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+
+      <el-submenu index="2">
+        <ng-template #title>
+          <i>
+            <img src="../../assets/天气.svg" alt="" width="20px" height="20px"
+              style="margin-right: 8px;margin-bottom: 5px;">
+          </i>气象数据
+        </ng-template>
+        <el-menu-item-group title=" ">
+          <el-menu-item index="2-1">查看气象数据</el-menu-item>
+          <el-menu-item index="2-2">数据趋势</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+
+      <el-submenu index="3">
+        <ng-template #title>
+          <i>
+            <img src="../../assets/预测.svg" alt="" width="20px" height="20px"
+              style="margin-right: 5px;margin-bottom: 5px;">
+          </i>
+          模型训练与预测
+        </ng-template>
+        <el-menu-item-group title=" ">
+          <el-menu-item index="3-1">模型训练</el-menu-item>
+          <el-menu-item index="3-2">下周预测</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+
+      <el-menu-item index="4">
+        <i>
+          <img src="../../assets/person.svg" alt="" width="20px" height="20px"
+            style="margin-right: 5px;margin-bottom: 5px;">
+        </i>
+        用户管理
+      </el-menu-item>
+    </el-menu>
+  </div>
+</div>
