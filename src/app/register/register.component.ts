@@ -11,6 +11,7 @@ export class RegisterComponent implements OnInit {
   public email = "";
   public username = "";
   public password = "";
+  public isFail = true;
   constructor(
     private loginService: LoginService,
     private router: Router
@@ -30,10 +31,11 @@ export class RegisterComponent implements OnInit {
       .subscribe(res => {
         if (res.err === 0) {
           console.log("register res", res.data)
+          this.isFail = false;
           //注册成功 跳转到登录页面
           setTimeout(()=>{
             this.router.navigateByUrl('/login')
-          }, 2000)
+          }, 1000)
         }
       })
   }

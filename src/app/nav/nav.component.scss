@@ -6,6 +6,10 @@ el-menu ::ng-deep .el-submenu__title i {
   float: right;
   margin-right: 5%;
 }
+.right-float ::ng-deep .el-menu-item:last-child {
+  float: right;
+  margin-right: 5%;
+}
 
 ::ng-deep .el-menu-item {
   font-size: 16px;

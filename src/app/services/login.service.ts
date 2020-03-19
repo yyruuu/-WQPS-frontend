@@ -54,4 +54,16 @@ export class LoginService {
       this.isLogin = false;
     }
   }
+
+  //登出
+  async Signout() {
+    window.localStorage.clear();
+    const res: ResponseVO = await this.http.get("http://localhost:8000/users/signout", { withCredentials: true }).toPromise()
+    if (res.err === 0) {
+      //注销成功
+      console.log("sign out res", res)
+      this.isLogin = false;
+      this.userInfo = {} as UserInfo;
+    }
+  }
 }

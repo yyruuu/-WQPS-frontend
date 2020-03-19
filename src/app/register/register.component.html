@@ -49,6 +49,8 @@
             <button type="button" class="btn btn-block sub-btn" (click)="register()">注册</button>
           </div>
         </div>
+
+        <div class="alert alert-success" role="alert" [hidden]="isFail">注册成功，请重新登陆！</div>
       </form>
     </div>
   </div>

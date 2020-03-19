@@ -1,15 +1,19 @@
-<el-menu [model]="0" (modelChange)="handle($event)" class="el-menu-demo" mode="horizontal"
-  background-color="#20a0ff"
-  active-text-color="#2c7eab"
-  text-color="#fff">
+<el-menu [model]="0" class="el-menu-demo" mode="horizontal" background-color="#20a0ff"
+  active-text-color="#2c7eab" text-color="#fff">
   <el-menu-item index="1">
     <a href="/">
       <img src="../../assets/white-icon.png" alt="" width="40px" height="40px">
     </a>
   </el-menu-item>
   <el-menu-item index="1">红树林生态水质预测系统</el-menu-item>
-  <el-submenu index="2" title="欢迎你，yyr" class="right-nav">
-    <el-menu-item index="2-1">注销</el-menu-item>
+  <el-submenu index="2" class="right-nav" title="欢迎你，{{loginService.userInfo.username}}" *ngIf="loginService.isLogin">
+    <div  (click)="signout()">
+      <el-menu-item index="2-1">注销</el-menu-item>
+    </div>
   </el-submenu>
- <!-- <el-menu-item index="3">注册</el-menu-item> -->
+  <div  class="right-float" *ngIf="!loginService.isLogin" (click)="toLogin()">
+    <el-menu-item index="2" class="right-nav">
+      登录
+    </el-menu-item>
+  </div>
 </el-menu>
