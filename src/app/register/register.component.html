@@ -16,7 +16,7 @@
                 邮&nbsp;&nbsp;&nbsp;&nbsp;箱
               </div>
             </div>
-            <input type="text" class="form-control" id="email" name="email">
+            <input type="text" class="form-control" id="email" name="email" [(ngModel)]="email">
           </div>
         </div>
 
@@ -28,7 +28,7 @@
                 用户名
               </div>
             </div>
-            <input type="text" class="form-control" id="username" name="username">
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
           </div>
         </div>
 
@@ -40,13 +40,13 @@
                 密&nbsp;&nbsp;&nbsp;&nbsp;码
               </div>
             </div>
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
           </div>
         </div>
     
         <div class="form-group">
           <div>
-            <button type="button" class="btn btn-block sub-btn">注册</button>
+            <button type="button" class="btn btn-block sub-btn" (click)="register()">注册</button>
           </div>
         </div>
       </form>

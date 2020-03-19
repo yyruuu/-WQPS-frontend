@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { WeatherDataComponent } from './weather-data/weather-data.component'
     AppRoutingModule,
     BrowserAnimationsModule,
     ElModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

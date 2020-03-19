@@ -16,7 +16,7 @@
                 用户名
               </div>
             </div>
-            <input type="text" class="form-control" id="username" name="username">
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
           </div>
         </div>
 
@@ -28,13 +28,13 @@
                 密&nbsp;&nbsp;&nbsp;&nbsp;码
               </div>
             </div>
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
           </div>
         </div>
     
         <div class="form-group">
           <div>
-            <button type="button" class="btn btn-block sub-btn">登录</button>
+            <button type="button" class="btn btn-block sub-btn" (click)="login()">登录</button>
           </div>
         </div>
       </form>
