@@ -4,6 +4,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { WeatherDataComponent } from './weather-data/weather-data.component';
+import { WaterDataComponent } from './water-data/water-data.component';
+import { UserAdminComponent } from './user-admin/user-admin.component';
+import { WaterPlotComponent } from './water-plot/water-plot.component';
 
 const routes: Routes = [
   {
@@ -12,8 +15,20 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        component: WaterDataComponent
+      },
+      {
+        path: 'water-plot',
+        component: WaterPlotComponent
+      },
+      {
+        path: 'weather',
         component: WeatherDataComponent
       },
+      {
+        path: 'user-admin',
+        component: UserAdminComponent
+      }
     ]
   },
   {

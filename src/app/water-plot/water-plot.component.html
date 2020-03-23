@@ -1,0 +1,25 @@
+<div class="container water-plot">
+  <div class="row align-items-center justify-content-center" style="margin-top: 5%;">
+    <label for="params">水质参数：</label>
+    <el-select [model]="'PH'" id="params" style="padding-right: 0;" (modelChange)="selParams($event)">
+      <el-option *ngFor="let item of [{value: 'PH',label: 'PH' },
+        { value: 'DO', label: 'DO' },
+        { value: 'CODMn', label: 'CODMn' },
+        { value: 'NH3_N', label: 'NH3-N' }]" [label]="item.label" [value]="item.value">
+      </el-option>
+    </el-select>
+
+    <label for="time">时间周期：</label>
+    <el-select [model]="'all'" id="time" style="padding-right: 0;" (modelChange)="selTime($event)">
+      <el-option *ngFor="let item of [{value: 'all',label: '全部' },
+        { value: '2015', label: '2015年' },
+        { value: '2016', label: '2016年' },
+        { value: '2017', label: '2017年' },
+        { value: '2018', label: '2018年' }]" [label]="item.label" [value]="item.value">
+      </el-option>
+    </el-select>
+
+    <button type="button" class="btn sub-btn">确定</button>
+
+  </div>
+</div>

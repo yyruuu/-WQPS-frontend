@@ -1,0 +1,30 @@
+<div class="container page">
+  <div class="row">
+    <el-tag>2014/06/02-2018/12/24的气象周数据</el-tag>
+  </div>
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <td>ID</td>
+          <td>用户名</td>
+          <td>邮箱</td>
+          <td>时间</td>
+          <td>编辑</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{user.id}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.createdAt | date:"short"}}</td>
+          <td>
+            <span class="glyphicon glyphicon-pencil icon" (click)="editModal(template, user.id)"></span>
+            <span class="glyphicon glyphicon-trash icon" (click)="deleteModal(template1, user.id)"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

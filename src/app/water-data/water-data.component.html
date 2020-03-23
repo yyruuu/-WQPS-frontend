@@ -1,0 +1,132 @@
+<div class="container page">
+  <div class="row">
+    <div class="col col-lg-2" style="text-align: center;">
+      <el-button type="primary" (click)="addData(template, 0)">新增数据<i class="el-icon-plus el-icon--right" ></i></el-button>
+    </div>
+    <div class="col col-lg-10" style="text-align: center;">
+      <el-tag>2014/06/02-2018/12/24的水质周数据</el-tag>
+    </div>
+  </div>
+  <!-- <div class="row"> -->
+  <!-- </div> -->
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <td>ID</td>
+          <td>PH</td>
+          <td>DO(mg/l)</td>
+          <td>CODMn(mg/l)</td>
+          <td>NH3-N(mg/l)</td>
+          <td>日期</td>
+          <td>编辑</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of datas">
+          <td>{{data.pk}}</td>
+          <td>{{data.fields.PH}}</td>
+          <td>{{data.fields.DO}}</td>
+          <td>{{data.fields.CODMn}}</td>
+          <td>{{data.fields.NH3_N}}</td>
+          <td>{{(data.fields.time | date:"yyyy-MM-dd")}}</td>
+          <td>
+            <!-- <span class="glyphicon glyphicon-pencil icon" (click)="editModal(template, user.id)"></span>
+            <span class="glyphicon glyphicon-trash icon" (click)="deleteModal(template1, user.id)"></span> -->
+            <i class="el-icon-edit" style="color: #1D8CE0; cursor: pointer;" 
+            (click)="editModal(template, data.pk)"
+            [attr.water-data-id]="data.pk"></i>
+            <i class="el-icon-delete" style="color: #FF4949; cursor: pointer;"
+            (click)="deleteModal(template1, data.pk)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- 分页器 -->
+  <div class="row">
+    <ul class="list">
+      <li>
+        <el-pagination [total]="pageNation.totalRecords" [layout]="['prev', 'pager', 'next', 'total']"
+          [page-size]="pageNation.pageSize" (modelChange)="pageChange($event)">
+        </el-pagination>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- 模态对话框 -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left" *ngIf="currId === 0">新增水质数据：{{currId}}</h4>
+    <h4 class="modal-title pull-left" *ngIf="currId !== 0">编辑水质数据：{{currId}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- <div class="modal-body">
+    <app-article-editor [articleId]="currId"></app-article-editor>
+  </div> -->
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="ph">PH:</label>
+      <input type="text" class="form-control" id="ph" [(ngModel)]="currData.PH">
+      <label for="do">DO:</label>
+      <input type="text" class="form-control" id="do" [(ngModel)]="currData.DO">
+      <label for="codmn">CODMn:</label>
+      <input type="text" class="form-control" id="codmn" [(ngModel)]="currData.CODMn">
+      <label for="nh3n">NH3-N:</label>
+      <input type="text" class="form-control" id="nh3n" [(ngModel)]="currData.NH3_N">
+      <label for="nh3n">日期:YYYY-MM-DD</label>
+      <input type="date" class="form-control" id="nh3n" [(ngModel)]="currData.time">
+      <!-- <input type="text" class="form-control" id="nh3n" [ngModel]="currData.time | date:'yyyy-MM-dd'" (ngModelChange)="currData.time=$event"> -->
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="alert alert-success" role="alert" *ngIf="addStatus === 1">
+      新增数据成功！
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="addStatus === 2">
+      新增数据失败！
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="addStatus === 3">
+      数据修改成功！
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="addStatus === 4">
+      数据修改失败！
+    </div>
+    <button type="button" class="btn btn-primary" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">取消</span>
+    </button>
+    <button type="button" class="btn btn-primary" aria-label="OK" (click)="refresh()">
+      <span aria-hidden="true">确定</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #template1>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">删除水质数据</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    是否要删除数据 {{currId}} ？
+  </div>
+  <div class="modal-footer">
+    <div class="alert alert-success" role="alert" *ngIf="addStatus === 5">
+      数据删除后成功！
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="addStatus === 6">
+      数据删除失败！
+    </div>
+    <button type="button" class="btn btn-primary" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">取消</span>
+    </button>
+    <button type="button" class="btn btn-primary" aria-label="OK" (click)="deleteData()">
+      <span aria-hidden="true">确定</span>
+    </button>
+  </div>
+</ng-template>

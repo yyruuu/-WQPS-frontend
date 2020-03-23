@@ -1,0 +1,17 @@
+.water-plot ::ng-deep .el-input, 
+.water-plot::ng-deep .el-select-dropdown {
+  width: 80%;
+  min-width: unset !important;
+}
+
+label {
+  color: #1D8CE0;
+}
+
+.sub-btn {
+  width: 15%;
+  background: linear-gradient(to right, #50a8fb, #2c7eab);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.29), inset 1px 1px 1px rgba(255, 255, 255, 0.44);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.22);
+  color: white;
+}

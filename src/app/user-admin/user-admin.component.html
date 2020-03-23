@@ -1,0 +1,113 @@
+<div class="container page">
+  <div class="row">
+    <div style="text-align: center;">
+      <el-tag>用户管理</el-tag>
+    </div>
+  </div>
+  <!-- <div class="row"> -->
+  <!-- </div> -->
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <td>ID</td>
+          <td>用户名</td>
+          <td>邮箱</td>
+          <td>注册时间</td>
+          <td>编辑</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of datas">
+          <td>{{data.pk}}</td>
+          <td>{{data.fields.username}}</td>
+          <td>{{data.fields.email}}</td>
+          <td>{{(data.fields.createdAt | date:"yyyy-MM-dd")}}</td>
+          <td>
+            <i class="el-icon-edit" style="color: #1D8CE0; cursor: pointer;" 
+            (click)="editModal(template, data.pk)"
+            [attr.water-data-id]="data.pk"></i>
+            <i class="el-icon-delete" style="color: #FF4949; cursor: pointer;"
+            (click)="deleteModal(template1, data.pk)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- 分页器 -->
+  <div class="row">
+    <ul class="list">
+      <li>
+        <el-pagination [total]="pageNation.totalRecords" [layout]="['prev', 'pager', 'next', 'total']"
+          [page-size]="pageNation.pageSize" (modelChange)="pageChange($event)">
+        </el-pagination>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- 模态对话框 -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left" *ngIf="currId !== 0">编辑用户数据：{{currId}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="username">用户名:</label>
+      <input type="text" class="form-control" id="username" [(ngModel)]="currData.username">
+      <label for="password">密码:</label>
+      <input type="password" class="form-control" id="password" [(ngModel)]="currData.password">
+      <label for="email">邮箱:</label>
+      <input type="email" class="form-control" id="email" [(ngModel)]="currData.email">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="alert alert-success" role="alert" *ngIf="addStatus === 1">
+      新增数据成功！
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="addStatus === 2">
+      新增数据失败！
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="addStatus === 3">
+      数据修改成功！
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="addStatus === 4">
+      数据修改失败！
+    </div>
+    <button type="button" class="btn btn-primary" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">取消</span>
+    </button>
+    <button type="button" class="btn btn-primary" aria-label="OK" (click)="refresh()">
+      <span aria-hidden="true">确定</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #template1>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">删除用户</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    是否要删除用户 {{currId}} ？
+  </div>
+  <div class="modal-footer">
+    <div class="alert alert-success" role="alert" *ngIf="addStatus === 5">
+      数据删除后成功！
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="addStatus === 6">
+      数据删除失败！
+    </div>
+    <button type="button" class="btn btn-primary" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">取消</span>
+    </button>
+    <button type="button" class="btn btn-primary" aria-label="OK" (click)="deleteData()">
+      <span aria-hidden="true">确定</span>
+    </button>
+  </div>
+</ng-template>

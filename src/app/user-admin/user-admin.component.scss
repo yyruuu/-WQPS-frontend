@@ -2,7 +2,7 @@
   justify-content: center;
 }
 .container {
-  margin-top: 50px;  
+  margin-top: 2%;  
 }
 .dropdown{
   margin: 20px 0;
@@ -26,4 +26,9 @@
 
 .page ::ng-deep .el-tag {
   font-size: 26px;
+  margin-bottom: 1%;
+}
+
+li {
+  list-style: none;
 }
