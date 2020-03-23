@@ -12,6 +12,7 @@
     <label for="time">时间周期：</label>
     <el-select [model]="'all'" id="time" style="padding-right: 0;" (modelChange)="selTime($event)">
       <el-option *ngFor="let item of [{value: 'all',label: '全部' },
+        { value: '2014', label: '2014年' },
         { value: '2015', label: '2015年' },
         { value: '2016', label: '2016年' },
         { value: '2017', label: '2017年' },
@@ -19,7 +20,10 @@
       </el-option>
     </el-select>
 
-    <button type="button" class="btn sub-btn">确定</button>
+    <button type="button" class="btn sub-btn" (click)="plotData()">确定</button>
 
+  </div>
+  <div class="row">
+    <div echarts [options]="chartOption" class="demo-chart" [initOpts]="initOptions"></div>
   </div>
 </div>

@@ -16,6 +16,7 @@ import { WaterDataComponent } from './water-data/water-data.component'
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { UserAdminComponent } from './user-admin/user-admin.component';
 import { WaterPlotComponent } from './water-plot/water-plot.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { WaterPlotComponent } from './water-plot/water-plot.component';
     BrowserAnimationsModule,
     ElModule.forRoot(),
     FormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    NgxEchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
