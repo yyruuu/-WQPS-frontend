@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EChartOption } from 'echarts';
 import * as moment from 'moment';
+import * as echarts from 'echarts/lib/echarts';
+import { graphic } from 'echarts';
 
 @Component({
   selector: 'app-water-plot',
@@ -56,11 +58,23 @@ export class WaterPlotComponent implements OnInit {
           },
           max: function (value) {
             return value.max + 0.5;
-        }
+          }
         },
         series: [{
           data: res["data"][1],
-          type: 'line'
+          type: 'line',
+          itemStyle: {
+            normal: {
+              color: new graphic.LinearGradient(
+                1, 0, 0, 0,
+                [
+                  { offset: 0, color: '#2c7eab' },
+                  { offset: 0.7, color: '#50a8fb' },
+                  { offset: 1, color: '#50a8fb' }
+                ]
+              )
+            },
+          }
         }]
       }
     }

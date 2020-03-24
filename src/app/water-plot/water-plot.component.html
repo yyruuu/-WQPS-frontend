@@ -1,5 +1,8 @@
 <div class="container water-plot">
-  <div class="row align-items-center justify-content-center" style="margin-top: 5%;">
+  <div class="row align-items-center justify-content-center" style="margin-top: 2%;">
+    <el-tag>{{waterParam}}水质参数的数据趋势</el-tag>
+  </div>
+  <div class="row align-items-center justify-content-center" style="margin-top: 2%;">
     <label for="params">水质参数：</label>
     <el-select [model]="'PH'" id="params" style="padding-right: 0;" (modelChange)="selParams($event)">
       <el-option *ngFor="let item of [{value: 'PH',label: 'PH' },
@@ -21,7 +24,6 @@
     </el-select>
 
     <button type="button" class="btn sub-btn" (click)="plotData()">确定</button>
-
   </div>
   <div class="row">
     <div echarts [options]="chartOption" class="demo-chart" [initOpts]="initOptions"></div>
