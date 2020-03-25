@@ -7,6 +7,7 @@ import { WeatherDataComponent } from './weather-data/weather-data.component';
 import { WaterDataComponent } from './water-data/water-data.component';
 import { UserAdminComponent } from './user-admin/user-admin.component';
 import { WaterPlotComponent } from './water-plot/water-plot.component';
+import { WeatherPlotComponent } from './weather-plot/weather-plot.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'weather',
         component: WeatherDataComponent
+      },
+      {
+        path: 'weather-plot',
+        component: WeatherPlotComponent
       },
       {
         path: 'user-admin',

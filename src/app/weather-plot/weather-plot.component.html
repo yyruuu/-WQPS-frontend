@@ -1,0 +1,36 @@
+<div class="container water-plot">
+  <div class="row align-items-center justify-content-center" style="margin-top: 2%;">
+    <el-tag>{{weatherParam}}的数据趋势</el-tag>
+  </div>
+  <div class="row align-items-center justify-content-center" style="margin-top: 2%;">
+    <label for="params">气象参数：</label>
+    <el-select [model]="'T'" id="params" style="padding-right: 0;" (modelChange)="selParams($event)">
+      <el-option *ngFor="let item of [{value: 'T',label: '气温T' },
+        { value: 'Po', label: '气象站大气压Po' },
+        { value: 'P', label: '海平面大气压P' },
+        { value: 'U', label: '相对湿度U' },
+        { value: 'Ff', label: '风速Ff' },
+        { value: 'VV', label: '能见度VV' },
+        { value: 'Td', label: '露点气温Td' },
+        { value: 'RRR', label: '降水量RRR' }
+        ]" [label]="item.label" [value]="item.value">
+      </el-option>
+    </el-select>
+
+    <label for="time">时间周期：</label>
+    <el-select [model]="'all'" id="time" style="padding-right: 0;" (modelChange)="selTime($event)">
+      <el-option *ngFor="let item of [{value: 'all',label: '全部' },
+        { value: '2014', label: '2014年' },
+        { value: '2015', label: '2015年' },
+        { value: '2016', label: '2016年' },
+        { value: '2017', label: '2017年' },
+        { value: '2018', label: '2018年' }]" [label]="item.label" [value]="item.value">
+      </el-option>
+    </el-select>
+
+    <button type="button" class="btn sub-btn" (click)="plotData()">确定</button>
+  </div>
+  <div class="row">
+    <div echarts [options]="chartOption" class="demo-chart" [initOpts]="initOptions"></div>
+  </div>
+</div>

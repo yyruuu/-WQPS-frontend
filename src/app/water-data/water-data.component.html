@@ -14,22 +14,22 @@
       <thead>
         <tr>
           <td>ID</td>
+          <td>日期</td>
           <td>PH</td>
           <td>DO(mg/l)</td>
           <td>CODMn(mg/l)</td>
           <td>NH3-N(mg/l)</td>
-          <td>日期</td>
           <td>编辑</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of datas">
           <td>{{data.pk}}</td>
+          <td>{{(data.fields.time | date:"yyyy-MM-dd")}}</td>
           <td>{{data.fields.PH}}</td>
           <td>{{data.fields.DO}}</td>
           <td>{{data.fields.CODMn}}</td>
           <td>{{data.fields.NH3_N}}</td>
-          <td>{{(data.fields.time | date:"yyyy-MM-dd")}}</td>
           <td>
             <!-- <span class="glyphicon glyphicon-pencil icon" (click)="editModal(template, user.id)"></span>
             <span class="glyphicon glyphicon-trash icon" (click)="deleteModal(template1, user.id)"></span> -->
@@ -77,8 +77,8 @@
       <input type="text" class="form-control" id="codmn" [(ngModel)]="currData.CODMn">
       <label for="nh3n">NH3-N:</label>
       <input type="text" class="form-control" id="nh3n" [(ngModel)]="currData.NH3_N">
-      <label for="nh3n">日期:YYYY-MM-DD</label>
-      <input type="date" class="form-control" id="nh3n" [(ngModel)]="currData.time">
+      <label for="time">日期:YYYY-MM-DD</label>
+      <input type="date" class="form-control" id="time" [(ngModel)]="currData.time">
       <!-- <input type="text" class="form-control" id="nh3n" [ngModel]="currData.time | date:'yyyy-MM-dd'" (ngModelChange)="currData.time=$event"> -->
 
     </div>

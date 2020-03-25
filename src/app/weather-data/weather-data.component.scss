@@ -2,7 +2,8 @@
   justify-content: center;
 }
 .container {
-  margin-top: 50px;  
+  margin-top: 50px;
+  max-width: 1260px;
 }
 .dropdown{
   margin: 20px 0;
@@ -14,7 +15,7 @@
   text-align: center;
 }
 .table thead {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   color: #2d2f33;
 }
@@ -26,4 +27,12 @@
 
 .page ::ng-deep .el-tag {
   font-size: 26px;
+}
+
+::ng-deep .ng-star-inserted {
+  font-size: 17px;
+}
+
+li {
+  list-style: none;
 }

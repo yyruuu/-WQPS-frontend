@@ -17,6 +17,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { UserAdminComponent } from './user-admin/user-admin.component';
 import { WaterPlotComponent } from './water-plot/water-plot.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { WeatherPlotComponent } from './weather-plot/weather-plot.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
     WeatherDataComponent,
     WaterDataComponent,
     UserAdminComponent,
-    WaterPlotComponent
+    WaterPlotComponent,
+    WeatherPlotComponent
   ],
   imports: [
     BrowserModule,

@@ -1,30 +1,148 @@
 <div class="container page">
   <div class="row">
-    <el-tag>2014/06/02-2018/12/24的气象周数据</el-tag>
+    <div class="col col-lg-2" style="text-align: center;">
+      <el-button type="primary" (click)="addData(template, 0)">新增数据<i class="el-icon-plus el-icon--right" ></i></el-button>
+    </div>
+    <div class="col col-lg-10" style="text-align: center;">
+      <el-tag>2014/06/02-2018/12/24的气象周数据</el-tag>
+    </div>
   </div>
+  <!-- <div class="row"> -->
+  <!-- </div> -->
   <div class="row">
     <table class="table table-hover">
       <thead>
         <tr>
           <td>ID</td>
-          <td>用户名</td>
-          <td>邮箱</td>
-          <td>时间</td>
+          <td>日期</td>
+          <td>温度T(°C)</td>
+          <td>气象站Po(mmHg)</td>
+          <td>海平面P(mmHg)</td>
+          <td>湿度U(%)</td>
+          <td>风速Ff(m/s)</td>
+          <td>能见度VV(km)</td>
+          <td>露点温度Td(°C)</td>
+          <td>降水量RRR(ms)</td>
           <td>编辑</td>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{user.id}}</td>
-          <td>{{user.username}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.createdAt | date:"short"}}</td>
+        <tr *ngFor="let data of datas">
+          <td>{{data.pk}}</td>
+          <td>{{data.fields.time | date:"yyyy-MM-dd"}}</td>
+          <td>{{data.fields.T | number : '1.2-2'}}</td>
+          <td>{{data.fields.Po | number : '1.2-2'}}</td>
+          <td>{{data.fields.P | number : '1.2-2'}}</td>
+          <td>{{data.fields.U | number : '1.2-2'}}</td>
+          <td>{{data.fields.Ff | number : '1.2-2'}}</td>
+          <td>{{data.fields.VV | number : '1.2-2'}}</td>
+          <td>{{data.fields.Td | number : '1.2-2'}}</td>
+          <td>{{data.fields.RRR | number : '1.2-2'}}</td>
           <td>
-            <span class="glyphicon glyphicon-pencil icon" (click)="editModal(template, user.id)"></span>
-            <span class="glyphicon glyphicon-trash icon" (click)="deleteModal(template1, user.id)"></span>
+            <!-- <span class="glyphicon glyphicon-pencil icon" (click)="editModal(template, user.id)"></span>
+            <span class="glyphicon glyphicon-trash icon" (click)="deleteModal(template1, user.id)"></span> -->
+            <i class="el-icon-edit" style="color: #1D8CE0; cursor: pointer;" 
+            (click)="editModal(template, data.pk)"
+            [attr.water-data-id]="data.pk"></i>
+            <i class="el-icon-delete" style="color: #FF4949; cursor: pointer;"
+            (click)="deleteModal(template1, data.pk)"></i>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <!-- 分页器 -->
+  <div class="row">
+    <ul class="list">
+      <li>
+        <el-pagination [total]="pageNation.totalRecords" [layout]="['prev', 'pager', 'next', 'total']"
+          [page-size]="pageNation.pageSize" (modelChange)="pageChange($event)">
+        </el-pagination>
+      </li>
+    </ul>
+  </div>
 </div>
+
+<!-- 模态对话框 -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left" *ngIf="currId === 0">新增气象数据：{{currId}}</h4>
+    <h4 class="modal-title pull-left" *ngIf="currId !== 0">编辑气象数据：{{currId}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- <div class="modal-body">
+    <app-article-editor [articleId]="currId"></app-article-editor>
+  </div> -->
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="T">气温T:</label>
+      <input type="text" class="form-control" id="T" [(ngModel)]="currData.T">
+      <label for="Po">气象站大气压Po:</label>
+      <input type="text" class="form-control" id="Po" [(ngModel)]="currData.Po">
+      <label for="P">海平面大气压P:</label>
+      <input type="text" class="form-control" id="P" [(ngModel)]="currData.P">
+      <label for="U">相对湿度U:</label>
+      <input type="text" class="form-control" id="U" [(ngModel)]="currData.U">
+      <label for="Ff">风速Ff:</label>
+      <input type="text" class="form-control" id="Ff" [(ngModel)]="currData.Ff">
+      <label for="VV">能见度VV:</label>
+      <input type="text" class="form-control" id="VV" [(ngModel)]="currData.VV">
+      <label for="Td">露点温度Td:</label>
+      <input type="text" class="form-control" id="Td" [(ngModel)]="currData.Td">
+      <label for="RRR">降水量RRR:</label>
+      <input type="text" class="form-control" id="RRR" [(ngModel)]="currData.RRR">
+      <label for="time">日期:YYYY-MM-DD</label>
+      <input type="date" class="form-control" id="time" [(ngModel)]="currData.time">
+      <!-- <input type="text" class="form-control" id="nh3n" [ngModel]="currData.time | date:'yyyy-MM-dd'" (ngModelChange)="currData.time=$event"> -->
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="alert alert-success" role="alert" *ngIf="addStatus === 1">
+      新增数据成功！
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="addStatus === 2">
+      新增数据失败！
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="addStatus === 3">
+      数据修改成功！
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="addStatus === 4">
+      数据修改失败！
+    </div>
+    <button type="button" class="btn btn-primary" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">取消</span>
+    </button>
+    <button type="button" class="btn btn-primary" aria-label="OK" (click)="refresh()">
+      <span aria-hidden="true">确定</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #template1>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">删除气象数据</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    是否要删除数据 {{currId}} ？
+  </div>
+  <div class="modal-footer">
+    <div class="alert alert-success" role="alert" *ngIf="addStatus === 5">
+      数据删除后成功！
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="addStatus === 6">
+      数据删除失败！
+    </div>
+    <button type="button" class="btn btn-primary" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">取消</span>
+    </button>
+    <button type="button" class="btn btn-primary" aria-label="OK" (click)="deleteData()">
+      <span aria-hidden="true">确定</span>
+    </button>
+  </div>
+</ng-template>
