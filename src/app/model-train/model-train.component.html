@@ -1,0 +1,28 @@
+<div class="container water-plot">
+  <div class="row align-items-center justify-content-center" style="margin-top: 2%;">
+    <el-tag>模型训练</el-tag>
+  </div>
+  <div class="row align-items-center justify-content-center" style="margin-top: 2%;">
+    <label for="params">水质参数：</label>
+    <el-select [model]="'PH'" id="params" style="padding-right: 0;" (modelChange)="selParams($event)">
+      <el-option *ngFor="let item of [{value: 'PH',label: 'PH' },
+        { value: 'DO', label: 'DO' },
+        { value: 'CODMn', label: 'CODMn' },
+        { value: 'NH3_N', label: 'NH3-N' }]" [label]="item.label" [value]="item.value">
+      </el-option>
+    </el-select>
+
+    <label for="model">模型：</label>
+    <el-select [model]="'SVR'" id="model" style="padding-right: 0;" (modelChange)="selModel($event)">
+      <el-option *ngFor="let item of [{value: 'SVR',label: 'SVR' },
+        { value: 'LSTM', label: 'LSTM' },
+        { value: 'BP', label: 'BP' }]" [label]="item.label" [value]="item.value">
+      </el-option>
+    </el-select>
+
+    <button type="button" class="btn sub-btn" (click)="train()">训练</button>
+  </div>
+  <div class="row">
+    <div echarts [options]="chartOption" class="demo-chart" [initOpts]="initOptions"></div>
+  </div>
+</div>

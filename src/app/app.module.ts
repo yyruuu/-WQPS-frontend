@@ -18,6 +18,8 @@ import { UserAdminComponent } from './user-admin/user-admin.component';
 import { WaterPlotComponent } from './water-plot/water-plot.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { WeatherPlotComponent } from './weather-plot/weather-plot.component';
+import { ModelTrainComponent } from './model-train/model-train.component';
+import { ModelPredictComponent } from './model-predict/model-predict.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { WeatherPlotComponent } from './weather-plot/weather-plot.component';
     WaterDataComponent,
     UserAdminComponent,
     WaterPlotComponent,
-    WeatherPlotComponent
+    WeatherPlotComponent,
+    ModelTrainComponent,
+    ModelPredictComponent
   ],
   imports: [
     BrowserModule,

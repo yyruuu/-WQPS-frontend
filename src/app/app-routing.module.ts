@@ -8,6 +8,8 @@ import { WaterDataComponent } from './water-data/water-data.component';
 import { UserAdminComponent } from './user-admin/user-admin.component';
 import { WaterPlotComponent } from './water-plot/water-plot.component';
 import { WeatherPlotComponent } from './weather-plot/weather-plot.component';
+import { ModelTrainComponent } from './model-train/model-train.component';
+import { ModelPredictComponent } from './model-predict/model-predict.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,14 @@ const routes: Routes = [
       {
         path: 'weather-plot',
         component: WeatherPlotComponent
+      },
+      {
+        path: 'model-train',
+        component: ModelTrainComponent
+      },
+      {
+        path: 'model-predict',
+        component: ModelPredictComponent
       },
       {
         path: 'user-admin',
