@@ -36,7 +36,7 @@ export class ModelPredictComponent implements OnInit {
   async predict(){
     // 暂时默认使用SVR，后期加入其他模型再更改即可
     // 默认预测后59个数据
-    const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}`).toPromise()
+    const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}&model=${this.model}`).toPromise()
     if(res["err"] === 0){
       // 预测数据格式调整
       let predict_data = [res["data"]["train_data"][res["data"]["train_data"].length-1], ...res["data"]["predict"]];

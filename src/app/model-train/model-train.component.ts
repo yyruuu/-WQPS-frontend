@@ -35,7 +35,7 @@ export class ModelTrainComponent implements OnInit {
   async train(){
     // 暂时默认使用SVR，后期加入其他模型再更改即可
     // 默认预测后59个数据
-    const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}`).toPromise()
+    const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}&model=${this.model}`).toPromise()
     if(res["err"] === 0){
       this.initOptions = {
         height: "580px",
