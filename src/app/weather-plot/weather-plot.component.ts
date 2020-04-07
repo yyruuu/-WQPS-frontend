@@ -39,6 +39,15 @@ export class WeatherPlotComponent implements OnInit {
         width: "1100px"
       }
       this.chartOption = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
         xAxis: {
           type: 'category',
           data: res["data"][0],

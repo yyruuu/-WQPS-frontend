@@ -32,11 +32,11 @@ export class ModelTrainComponent implements OnInit {
     this.model = event;
   }
 
-  async train(){
+  async train() {
     // 暂时默认使用SVR，后期加入其他模型再更改即可
     // 默认预测后59个数据
     const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}&model=${this.model}`).toPromise()
-    if(res["err"] === 0){
+    if (res["err"] === 0) {
       this.initOptions = {
         height: "580px",
         width: "1100px"
@@ -46,7 +46,15 @@ export class ModelTrainComponent implements OnInit {
           data: ['预测值', '真实值'],
           align: 'left'
         },
-        tooltip: {},
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
         xAxis: {
           type: 'category',
           data: res["data"]["time"],
@@ -100,7 +108,7 @@ export class ModelTrainComponent implements OnInit {
             },
           }
         }
-      ]
+        ]
       }
     }
 
