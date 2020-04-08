@@ -10,7 +10,7 @@ import { WaterPlotComponent } from './water-plot/water-plot.component';
 import { WeatherPlotComponent } from './weather-plot/weather-plot.component';
 import { ModelTrainComponent } from './model-train/model-train.component';
 import { ModelPredictComponent } from './model-predict/model-predict.component';
-
+import { LoginGuardGuard } from './auth/login-guard.guard';
 const routes: Routes = [
   {
     path: '',
@@ -18,6 +18,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [LoginGuardGuard],
         component: WaterDataComponent
       },
       {
@@ -26,6 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'weather',
+        canActivate: [LoginGuardGuard],
         component: WeatherDataComponent
       },
       {
@@ -42,6 +44,7 @@ const routes: Routes = [
       },
       {
         path: 'user-admin',
+        canActivate: [LoginGuardGuard],
         component: UserAdminComponent
       }
     ]
