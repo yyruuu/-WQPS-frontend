@@ -22,7 +22,20 @@
 
     <button type="button" class="btn sub-btn" (click)="predict()">预测</button>
   </div>
-  <div class="row">
+  <!-- <div class="row">
     <div echarts [options]="chartOption" class="demo-chart" [initOpts]="initOptions"></div>
+  </div> -->
+  <div class="row align-items-center">
+    <div class="col-lg-2" style="text-align: center;">
+      <el-alert type="error">
+        海水水质标准：
+        <ng-template #description>
+          <span>{{alertWords}}</span>
+        </ng-template>
+      </el-alert>
+    </div>
+    <div class="col-lg-10">
+      <div echarts [options]="chartOption" class="demo-chart" [initOpts]="initOptions"></div>
+    </div>
   </div>
 </div>

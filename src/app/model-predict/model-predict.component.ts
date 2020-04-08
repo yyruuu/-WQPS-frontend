@@ -18,48 +18,7 @@ export class ModelPredictComponent implements OnInit {
     PH: {
       symbol: "none",               //去掉警戒线最后面的箭头
       label: {
-        // formatter: "最低PH值",
-        position: "end"          //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-      },
-      data: [{
-        name: "最低PH值",
-        lineStyle: {               //警戒线的样式  ，虚实  颜色
-          type: "solid",
-          color: "#FA3934",
-        },
-        yAxis: 7.8       // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
-      },
-      {
-        silent: false,             //鼠标悬停事件  true没有，false有
-        name: "最高PH值",
-        lineStyle: {               //警戒线的样式  ，虚实  颜色
-          type: "solid",
-          color: "#FA3934",
-        },
-        yAxis: 8.5       // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
-      }
-    ]
-    },
-    DO: {
-      symbol: "none",               //去掉警戒线最后面的箭头
-      label: {
-        formatter: ">6",
-        position: "end"          //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-      },
-      data: [{
-        // name: ">6",
-        lineStyle: {               //警戒线的样式  ，虚实  颜色
-          type: "solid",
-          color: "#FA3934",
-        },
-        yAxis: 6       // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
-      },
-    ]
-    },
-    CODMn: {
-      symbol: "none",               //去掉警戒线最后面的箭头
-      label: {
-        formatter: "<=2",
+        formatter: "最低PH值为7.5",
         position: "end"          //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
       },
       data: [{
@@ -67,27 +26,11 @@ export class ModelPredictComponent implements OnInit {
           type: "solid",
           color: "#FA3934",
         },
-        yAxis: 2       // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
-      },
-    ]
-    },
-    NH3_N: {
-      symbol: "none",               //去掉警戒线最后面的箭头
-      label: {
-        formatter: "<=0.2",
-        position: "end"          //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-      },
-      data: [{
-        lineStyle: {               //警戒线的样式  ，虚实  颜色
-          type: "solid",
-          color: "#FA3934",
-        },
-        yAxis: 0.2      // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
-      }
-    ]
+        yAxis: 7.8         // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+      }]
     }
   }
-  public marklineRange = this.marklines.PH;
+  public alertWords = "7.8~8.5，同时不超出该海域正常变动范围的0.2PH单位"
   constructor(
     private http: HttpClient
   ) { }
@@ -108,6 +51,15 @@ export class ModelPredictComponent implements OnInit {
   }
 
   async predict() {
+    if(this.waterParam === "PH"){
+      this.alertWords = "PH: 7.8~8.5，同时不超出该海域正常变动范围的0.2PH单位"
+    }else if (this.waterParam === "DO"){
+      this.alertWords = "DO: 应大于6"
+    }else if (this.waterParam === "CODMn"){
+      this.alertWords = "CODMn: 应小于等于2"
+    }else if (this.waterParam === "NH3_N"){
+      this.alertWords = "NH3-N: 应小与等于0.2"
+    }
     // 暂时默认使用SVR，后期加入其他模型再更改即可
     // 默认预测后59个数据
     const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}&model=${this.model}`).toPromise()
@@ -117,7 +69,6 @@ export class ModelPredictComponent implements OnInit {
       for (let i = 0; i < res["data"]["train_data"].length - 1; i++) {
         predict_data.unshift("-");
       }
-      this.marklineRange = this.marklines[this.waterParam]
       this.initOptions = {
         height: "580px",
         width: "1100px"
@@ -149,10 +100,21 @@ export class ModelPredictComponent implements OnInit {
           type: 'value',
           // boundaryGap: [Math.min(res["data"][1]) - 1, Math.max(res["data"][1]) + 1]
           min: function (value) {
-            return (value.min - 0.5).toFixed(2);
+            // if (value.min < 7.8) {
+            //   return Number((value.min + 0.5).toFixed(2));
+            // }else{
+            //   return Number(7.8);
+            // }
+            return Number((value.max + 0.5).toFixed(2));
+
           },
           max: function (value) {
-            return (value.max + 0.5).toFixed(2);
+            // if (value.max > 8.5) {
+            //   return Number((value.max + 0.5).toFixed(2));
+            // }else{
+            //   return 8.5;
+            // }
+            return Number((value.max + 0.5).toFixed(2));
           }
         },
         series: [{
@@ -176,7 +138,6 @@ export class ModelPredictComponent implements OnInit {
           data: predict_data,
           name: '预测值',
           type: 'line',
-          // markLine: this.marklineRange,
           itemStyle: {
             normal: {
               color: new graphic.LinearGradient(

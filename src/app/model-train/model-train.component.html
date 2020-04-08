@@ -22,7 +22,12 @@
 
     <button type="button" class="btn sub-btn" (click)="train()">训练</button>
   </div>
-  <div class="row">
-    <div echarts [options]="chartOption" class="demo-chart" [initOpts]="initOptions"></div>
+  <div class="row align-items-center">
+    <div class="col-lg-1" style="text-align: center;">
+      <el-tag *ngIf="mae"> MAE：{{mae | number}}</el-tag>
+    </div>
+    <div class="col-lg-11">
+      <div echarts [options]="chartOption" class="demo-chart" [initOpts]="initOptions"></div>
+    </div>
   </div>
 </div>

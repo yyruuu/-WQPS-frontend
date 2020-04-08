@@ -60,10 +60,10 @@ export class WeatherPlotComponent implements OnInit {
         yAxis: {
           type: 'value',
           min: function (value) {
-            return (value.min - 0.5).toFixed(2);
+            return Number((value.min - 0.5).toFixed(2));
           },
           max: function (value) {
-            return (value.max + 0.5).toFixed(2);
+            return Number((value.max + 0.5).toFixed(2));
           }
         },
         series: [{

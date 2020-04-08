@@ -4,6 +4,11 @@
   min-width: unset !important;
 }
 
+.container {
+  margin-top: 20px;
+  max-width: 1260px;
+}
+
 label {
   color: #1D8CE0;
 }
@@ -18,10 +23,10 @@ label {
 
 .demo-chart {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .water-plot ::ng-deep .el-tag {
   font-size: 26px;
-  margin-bottom: 1%;
+  margin-bottom: 10px;
 }
