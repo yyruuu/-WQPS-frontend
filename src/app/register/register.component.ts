@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
   public username = "";
   public password = "";
   public isFail = true;
+  public isSuccess = true;
   constructor(
     private loginService: LoginService,
     private router: Router
@@ -36,6 +37,8 @@ export class RegisterComponent implements OnInit {
           setTimeout(()=>{
             this.router.navigateByUrl('/login')
           }, 1000)
+        }else {
+          this.isSuccess = false;
         }
       })
   }

@@ -18,6 +18,10 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        component: WaterPlotComponent
+      },
+      {
+        path: 'water',
         canActivate: [LoginGuardGuard],
         component: WaterDataComponent
       },
