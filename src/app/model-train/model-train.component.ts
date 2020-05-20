@@ -15,6 +15,7 @@ export class ModelTrainComponent implements OnInit {
   public chartOption: EChartOption;
   public initOptions;
   public mae;
+  public step = 4;
   public marklines : any= {
     PH: {
       label: {
@@ -141,7 +142,7 @@ export class ModelTrainComponent implements OnInit {
   async train() {
     // 暂时默认使用SVR，后期加入其他模型再更改即可
     // 默认预测后59个数据
-    const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}&model=${this.model}`).toPromise()
+    const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}&model=${this.model}&step=${this.step}`).toPromise()
     if (res["err"] === 0) {
       this.mae = res["data"]["mae"]
       this.initOptions = {
@@ -187,6 +188,11 @@ export class ModelTrainComponent implements OnInit {
           data: res["data"]["predict"],
           name: '预测值',
           type: 'line',
+          symbol: 'triangle',
+          symbolSize: 8,
+          lineStyle: {
+            type: 'dashed'
+          },
           markLine: this.theMarkLine,
           itemStyle: {
             normal: {

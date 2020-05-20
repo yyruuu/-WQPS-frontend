@@ -14,6 +14,7 @@ export class ModelPredictComponent implements OnInit {
   public model = "SVR";
   public chartOption: EChartOption;
   public initOptions;
+  public step = 4;
   public marklines = {
     PH: {
       symbol: "none",               //去掉警戒线最后面的箭头
@@ -62,13 +63,14 @@ export class ModelPredictComponent implements OnInit {
     }
     // 暂时默认使用SVR，后期加入其他模型再更改即可
     // 默认预测后59个数据
-    const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}&model=${this.model}`).toPromise()
+    const res = await this.http.get(`http://localhost:8000/model/train?param=${this.waterParam}&model=${this.model}&step=${this.step}`).toPromise()
     if (res["err"] === 0) {
       // 预测数据格式调整
       let predict_data = [res["data"]["train_data"][res["data"]["train_data"].length - 1], ...res["data"]["last_predict"]];
       for (let i = 0; i < res["data"]["train_data"].length - 1; i++) {
         predict_data.unshift("-");
       }
+      let extendTime = ["2018-12-31", "2019-01-07", "2019-01-14", "2019-01-21", "2019-01-28", "2019-02-04", "2019-02-11", "2019-02-18", "2019-02-25", "2019-03-04", "2019-03-11", "2019-03-18", "2019-03-25"];
       this.initOptions = {
         height: "580px",
         width: "1100px"
@@ -89,7 +91,9 @@ export class ModelPredictComponent implements OnInit {
         },
         xAxis: {
           type: 'category',
-          data: [...res["data"]["train_time"], "2018-12-31", "2019-01-07", "2019-01-14", "2019-01-21"],
+          // data: [...res["data"]["train_time"], "2018-12-31", "2019-01-07", "2019-01-14", "2019-01-21"],
+          data: [...res["data"]["train_time"], ...extendTime.slice(0, this.step)],
+
           axisLabel: {
             formatter: (function (value) {
               return moment(value).format('YYYY-MM-DD');
@@ -138,6 +142,11 @@ export class ModelPredictComponent implements OnInit {
           data: predict_data,
           name: '预测值',
           type: 'line',
+          symbol: 'triangle',
+          symbolSize: 8,
+          lineStyle: {
+            type: 'dashed'
+          },
           itemStyle: {
             normal: {
               color: new graphic.LinearGradient(

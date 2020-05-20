@@ -20,6 +20,9 @@
       </el-option>
     </el-select>
 
+    <label for="model">预测步长：</label>
+    <el-input [(model)]="step"></el-input>
+
     <button type="button" class="btn sub-btn" (click)="predict()">预测</button>
   </div>
   <!-- <div class="row">
