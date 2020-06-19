@@ -11,7 +11,7 @@ export class LoginGuardGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean{
-      console.log("Login Guard");
+      console.log("Login Guard", window.localStorage.getItem('userId'));
       if(window.localStorage.getItem('userId')){
         return true;
       }else{

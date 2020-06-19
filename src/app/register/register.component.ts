@@ -23,6 +23,8 @@ export class RegisterComponent implements OnInit {
 
   //点击注册按钮
   register() {
+    this.isSuccess = true;
+    this.isFail = true;
     const data = {
       email: this.email,
       username: this.username,
